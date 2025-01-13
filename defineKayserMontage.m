@@ -61,16 +61,27 @@ function [MontageChannels, Montage] = defineKayserMontage()
     Montage('P2') = {'P4', 'Pz', 'CP2', 'PO4'};
     Montage('P3') = {'P1', 'P5', 'CP3', 'PO3'};
     Montage('P4') = {'P2', 'P6', 'CP4', 'PO4'};
-    Montage('P5') = {'P3', 'P7', 'CP5', 'PO5'}; % edited ES for PO5 4/2024
-    Montage('P6') = {'P8', 'P4', 'CP6', 'PO6'}; % edited ES for PO6  4/2024
+%     Montage('P5') = {'P3', 'P7', 'CP5', 'PO5'}; % edited ES for PO5 4/2024
+      Montage('P5') = {'P3', 'P7', 'CP5'}; % edited SG for PO5 11/2024
+
+%     Montage('P6') = {'P8', 'P4', 'CP6', 'PO6'}; % edited ES for PO6  4/2024
+    Montage('P6') = {'P8', 'P4', 'CP6'}; % edited SG for PO6  11/2024
+
     Montage('P7') = {'P5', 'PO7', 'P9', 'TP9'};
     Montage('P9') = {'P7', 'TP9', 'TP7', 'PO7'};
-    Montage('PO3') = {'P1', 'P3', 'O1', 'PO5'}; % edited ES for PO5 4/2024
-    Montage('PO4') = {'PO6', 'O2', 'POz', 'P4'}; % edited ES for PO6 4/2024
-    Montage('PO5') = {'PO7','PO3','P5','O1'}; % added manually ES 4/2024
-    Montage('PO6') = {'PO4','PO8','P6','O2'}; % added manually ES 4/2024
-    Montage('PO7') = {'P5', 'P7', 'O1', 'PO5'}; % edited ES for PO5 4/2024
-    Montage('PO8') = {'P8', 'P6', 'PO6', 'O2'}; % edited ES for PO6 4/2024
+%     Montage('PO3') = {'P1', 'P3', 'O1', 'PO5'}; % edited ES for PO5 /2024
+    Montage('PO3') = {'P1', 'P3', 'O1'};
+
+%     Montage('PO4') = {'PO6', 'O2', 'POz', 'P4'}; % edited ES for PO6 4/2024
+    Montage('PO4') = {'O2', 'POz', 'P4'}; % edited SG for PO6 11/2024
+%     Montage('PO5') = {'PO7','PO3','P5','O1'}; % added manually ES 4/2024
+%     Montage('PO6') = {'PO4','PO8','P6','O2'}; % added manually ES 4/2024
+
+%     Montage('PO7') = {'P5', 'P7', 'O1', 'PO5'}; % edited ES for PO5 4/2024
+    Montage('PO7') = {'P5', 'P7', 'O1'}; % edited SG for PO5 11/2024
+
+%     Montage('PO8') = {'P8', 'P6', 'PO6', 'O2'}; % edited ES for PO6 4/2024
+    Montage('PO8') = {'P8', 'P6', 'O2'}; % edited SG for PO6 11/2024
     Montage('POz') = {'Pz', 'PO4', 'Oz', 'PO3'};
     Montage('Pz') = {'P2', 'Cpz', 'P1', 'POz'};
     Montage('T7') = {'FT7', 'C5', 'TP7', 'TP9'};
