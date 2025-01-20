@@ -31,16 +31,16 @@ function [] = runPowerTopoplot(dataPath, savePath, peakFreq, compareFreq)
     else
         peakPower = 10*log10(S(find(f>=peakFreq,1),:));
     end
+
+    identifier = regexp(savePath, 'CS_\d+|CN_\d+', 'match', 'once');
     
     fig1 = figure;  % Create a new figure for each channel's plot
     topoplot(peakPower, chanlocs, 'electrodes','labels');  
     colorbar;
     if exist('compareFreq','var')
-        title(sprintf('Power at %d Hz relative to %d Hz', peakFreq, compareFreq));
-        saveas(fig1, fullfile(savePath, ['PowerTopoplot_' num2str(peakFreq) 'Hz_vs_' num2str(compareFreq) 'Hz.png']));
+        title(sprintf('Power at %d Hz relative to %d Hz for %s', peakFreq, compareFreq,identifier));
+        saveas(fig1, fullfile(savePath, ['PowerTopoplot_' num2str(peakFreq) 'Hz_vs_' num2str(compareFreq) 'Hz_' identifier '.png']));
     else
-        title(sprintf('Power at %d Hz', peakFreq));
-        saveas(fig1, fullfile(savePath, ['PowerTopoplot_' num2str(peakFreq) 'Hz.png']));
+        title(sprintf('Power at %d Hz for %s', peakFreq, identifier));
+        saveas(fig1, fullfile(savePath, ['PowerTopoplot_' num2str(peakFreq) 'Hz_' identifier '.png']));
     end
-
-

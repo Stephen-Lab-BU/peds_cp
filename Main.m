@@ -3,10 +3,12 @@
 % Contact: Sebastian Gallo, galloseb@mit.edu
 % Date: Jan 13, 2025
 % Must be ran while in peds_cp folder
+% Must have path to chronux and eeg lab
 
 clc; clear; close all;
 
 % Define paths
+
 projectDir = pwd;  % Current directory containing `peds_cp`
 dataDir = fullfile(projectDir, 'files_to_process');
 resultsDir = fullfile(projectDir, 'results');
@@ -16,10 +18,6 @@ if ~exist(resultsDir, 'dir')
     mkdir(resultsDir);
 end
 
-% Parameters
-peakFreq = 10;  % Frequency of interest (e.g., 10 Hz)
-compareFreq = 5; % Optional comparison frequency (e.g., 5 Hz)
-
 % Get list of .mat files in the data directory
 dataFiles = dir(fullfile(dataDir, '*.mat'));
 
@@ -27,12 +25,12 @@ dataFiles = dir(fullfile(dataDir, '*.mat'));
 %% Directory Creation
 
 % Simulate a single file from the data directory
-fileName = 'Archive_1_CS_4_nobads_laplac_ds256_focus.mat';  % Test file
+fileName = 'Archive_1_CS_2_nobads_laplac_ds256_focus.mat';  % Test file
 dataPath = fullfile(dataDir, fileName);
 
 % Test parameters
-peakFreq = 10;  % Frequency of interest (e.g., 10 Hz)
-compareFreq = 5; % Optional comparison frequency (e.g., 5 Hz)
+peakFreq = 13;  % Frequency of interest (e.g., 10 Hz)
+compareFreq = 7; % Optional comparison frequency (e.g., 5 Hz)
 
 fprintf('Processing file: %s\n', fileName);
 
@@ -69,6 +67,11 @@ end
 fprintf('Processing completed. Results saved in %s\n', savePath);
 
 %% Section for processing all topoplot
+
+% Parameters
+peakFreq = 13;  % Frequency of interest (e.g., 13 Hz)
+compareFreq = [7]; % Optional comparison frequency (set to [] if not used)
+
 % Loop through each file and process
 for i = 1:length(dataFiles)
     fprintf('Processing file %d of %d: %s\n', i, length(dataFiles), dataFiles(i).name);
@@ -90,20 +93,28 @@ for i = 1:length(dataFiles)
     end
 
     % Define save path based on group and subject ID
-    savePath = fullfile(resultsDir, group, subjectID,'topoplot');
+    savePath = fullfile(resultsDir, group, subjectID, 'topoplot');
     
     % Create the save directory if it doesn't exist
     if ~exist(savePath, 'dir')
         mkdir(savePath);
     end
 
-    % Generate the topoplot and save results
+    % Determine if both `peakFreq` and `compareFreq` are used
     try
-        runPowerTopoplot(dataPath, savePath, peakFreq, compareFreq);
-        fprintf('Successfully processed %s\n', fileName);
+        if isempty(compareFreq)
+            % Only peakFreq
+            runPowerTopoplot(dataPath, savePath, peakFreq);
+            fprintf('Processed %s with peakFreq only: %d Hz\n', fileName, peakFreq);
+        else
+            % Both peakFreq and compareFreq
+            runPowerTopoplot(dataPath, savePath, peakFreq, compareFreq);
+            fprintf('Processed %s with peakFreq: %d Hz and compareFreq: %d Hz\n', fileName, peakFreq, compareFreq);
+        end
     catch ME
         fprintf('Error processing %s: %s\n', fileName, ME.message);
     end
 end
 
 fprintf('All files processed. Results saved in %s\n', resultsDir);
+
