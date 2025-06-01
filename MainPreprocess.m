@@ -18,15 +18,19 @@ save_dir = '';
 subject = 'CN7';
 
 % Bad channels for this subject
-channelsToRemove = {'M1', 'M2', 'FT8', 'Fz', 'TP7', 'C4', 'F4', 'CP3', 'CP4', 'FC4'};
+% channelsToRemove = {'M1', 'M2', 'FT8', 'Fz', 'TP7', 'C4', 'F4', 'CP3', 'CP4', 'FC4'};
+channelsToRemove = {'M1', 'M2', 'TP7', 'TP8', 'P1', 'P2', 'P3', 'P4', 'P6', 'P8', 'PO3',...
+'PO4', 'O2', 'FC7', 'FT8'};
 
 % Time in minutes where there is good data, for plotting spectrogram
-startMinutes = 33;
+startMinutes = 27;
 
 %% Set up paths
 
-dataPath = fullfile(subjects_dir,subject,['Archive_1_' subject '.mat']);
-outputFolderPath= fullfile(save_dir,subject);
+% dataPath = fullfile(subjects_dir,subject,['Archive_1_' subject '.mat']);
+dataPath='/Users/gallo/Documents/peds_cp/files_to_process/Originals/Archive_1_CS_3_Orig.mat';
+% outputFolderPath= fullfile(save_dir,subject);
+outputPath = '/Users/gallo/Documents/peds_cp/files_to_process/Originals';
 
 if ~exist(outputFolderPath, 'dir')
    mkdir(outputFolderPath)
