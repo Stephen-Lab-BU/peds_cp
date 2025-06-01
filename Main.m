@@ -10,7 +10,7 @@ clc; clear; close all;
 % Define paths
 
 projectDir = pwd;  % Current directory containing `peds_cp`
-dataDir = fullfile(projectDir, 'files_to_process');
+dataDir = DropboxUtils.getPreprocessedDataPath();
 resultsDir = fullfile(projectDir, 'results');
 
 % Create results directory if it doesn't exist
